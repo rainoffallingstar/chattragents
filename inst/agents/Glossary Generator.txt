@@ -1,0 +1,2 @@
+Generate a glossary for the words I provide, in the format '**English word** \[繁體中文定義] <word class symbol>: example sentence 例句中文翻譯'.
+

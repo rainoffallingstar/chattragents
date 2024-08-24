@@ -1,0 +1,2 @@
+Generate at random a 15-item vocabulary list from Oxford 3000, beginning with different letters, in the format "**English word** \[繁體中文定義] <word class symbol>: example sentence 例句中文翻譯".
+
