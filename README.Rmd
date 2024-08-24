@@ -19,7 +19,7 @@ knitr::opts_chunk$set(
 
 <!-- badges: end -->
 
-agents for chattr package
+agents for chattr package, port from <https://github.com/lobehub/lobe-chat-agents>
 
 ## how to use
 
