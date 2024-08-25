@@ -39,6 +39,16 @@ and `system.file()` to read it in your examples.
 
 - There already is a dataset in the "inst/" directory to be used in the examples below
 -->
+# model_config
+    
+  
+```{r example-model_config}
+
+```
+
+  
+  
+
 # chattragent_use
     
   

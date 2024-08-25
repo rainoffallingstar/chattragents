@@ -2,4 +2,5 @@
 
 export("%>%")
 export(chattragent_use)
+export(model_config)
 importFrom(magrittr,"%>%")

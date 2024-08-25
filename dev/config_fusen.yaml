@@ -1,8 +1,12 @@
 flat_first.Rmd:
   path: dev/flat_first.Rmd
   state: active
-  R: R/chattragent_use.R
-  tests: tests/testthat/test-chattragent_use.R
+  R:
+  - R/chattragent_use.R
+  - R/model_config.R
+  tests:
+  - tests/testthat/test-model_config.R
+  - tests/testthat/test-chattragent_use.R
   vignettes: vignettes/get-started.Rmd
   inflate:
     flat_file: dev/flat_first.Rmd

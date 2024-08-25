@@ -32,6 +32,55 @@ and `system.file()` to read it in your examples.
 
 - There already is a dataset in the "inst/" directory to be used in the examples below
 -->
+# model_config
+    
+```{r function-model_config}
+#' model_config
+#' 
+#' config models and test
+#' @param provider default as openai
+#' @param path the path url 
+#' @param label the label of defined model
+#' @param model the used model
+#' @param file the saved yaml file
+#' @param test_apikey the api key for model test 
+#' @return yamlfile
+#' 
+#' @export
+model_config <- function(provider = "OpenAI - Chat Completions",
+                         path = "https://api.lingyiwanwu.com/v1/chat/completions",
+                         label = "yi-34b-chat-0205 (01.AI)",
+                         model = "yi-34b-chat-0205",
+                         file = "dev/model_test.yml",
+                         test_apikey
+                         ){
+  model_temple <- chattragents::model_temple
+  model_temple$default$provider <- provider
+  model_temple$default$path <- path
+  model_temple$default$label <- label
+  model_temple$default$model <- model
+  fs::dir_create(path = basename(file))
+  yaml::write_yaml(model_temple,
+                   file = file)
+  message("configing model,now test ...")
+  Sys.setenv("OPENAI_API_KEY" = test_apikey)
+  chattr::chattr_use(file)
+  chattr::chattr("who are you")
+  return(file)
+}
+```
+  
+```{r example-model_config}
+
+```
+  
+```{r tests-model_config}
+test_that("model_config works", {
+  expect_true(inherits(model_config, "function")) 
+})
+```
+  
+
 # chattragent_use
     
 ```{r function-chattragent_use}
@@ -43,6 +92,23 @@ and `system.file()` to read it in your examples.
 #' 
 #' @export
 chattragent_use <- function(agent){
+    agentlist <- chattragents::agentlist
+    agent <- agentlist[grepl(agent,agentlist)]
+    if (length(agent) == 0){
+      stop("agent is not found in the current dataset")
+    } else if(length(agent) > 1){
+      message(glue::glue("{length(agent)} agents found"))
+      for (i in 1:length(agent)){
+        message(glue::glue("{i}.{agent[i]}"))
+      }
+      id <- readline("multiagents found,choose one :") %>% 
+        as.numeric()
+      if (id >=1 && id <= length(agent)){
+        agent <- agent[id]
+      }else{
+        stop("error! choose a correct number.")
+      }
+    }
     agent <- glue::glue("agents/{agent}.txt") %>% 
       system.file(package = "chattragents")
     if (!file.exists(agent)){
@@ -50,7 +116,7 @@ chattragent_use <- function(agent){
     } else {
       chattr::chattr_defaults(prompt = readLines(agent))
     }
-    return(agent)
+    return(chattr::chattr_defaults())
 }
 ```
   

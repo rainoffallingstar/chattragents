@@ -63,6 +63,13 @@ usethis::use_news_md()
 fusen::draw_package_structure()
 
 usethis::use_dev_package("mlverse/chattr")
+
+agentlist <- list.files("inst/agents","*.txt") %>% 
+  stringr::str_remove(.,".txt")
+usethis::use_data(agentlist)
+
+model_temple <- yaml::read_yaml("~/chattr/inst/configs/yi.yml")
+usethis::use_data(model_temple)
 ```
 
 **From now, you will need to "inflate" your package at least once to be able to use the following commands. Let's go to your flat template, and come back here later if/when needed.**

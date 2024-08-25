@@ -8,12 +8,29 @@
 #' 
 #' @export
 chattragent_use <- function(agent){
+    agentlist <- chattragents::agentlist
+    agent <- agentlist[grepl(agent,agentlist)]
+    if (length(agent) == 0){
+      stop("agent is not found in the current dataset")
+    } else if(length(agent) > 1){
+      message(glue::glue("{length(agent)} agents found"))
+      for (i in 1:length(agent)){
+        message(glue::glue("{i}.{agent[i]}"))
+      }
+      id <- readline("multiagents found,choose one :") %>% 
+        as.numeric()
+      if (id >=1 && id <= length(agent)){
+        agent <- agent[id]
+      }else{
+        stop("error! choose a correct number.")
+      }
+    }
     agent <- glue::glue("agents/{agent}.txt") %>% 
-      system.file(.,package = "chattragents")
+      system.file(package = "chattragents")
     if (!file.exists(agent)){
       stop("agent is not found in the current dataset")
     } else {
       chattr::chattr_defaults(prompt = readLines(agent))
     }
-    return(agent)
+    return(chattr::chattr_defaults())
 }

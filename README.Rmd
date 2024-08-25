@@ -24,7 +24,12 @@ agents for chattr package, port from <https://github.com/lobehub/lobe-chat-agent
 ## how to use
 
 ``` r
-library(chattragent)
+pak::pak("rainoffallingstar/chattragents")
+pak::pak("rainoffallingstar/chattr")
+library(chattragents)
+library(chattr)
+Sys.setenv("OPENAI_API_KEY" = "####################")
+chattr::chattr_use("yi")
 chattragent_use("情感陪伴师")
 chattr::chattr("有个比我老的人，喊我姐，我生气了，哄哄我")
 ```
