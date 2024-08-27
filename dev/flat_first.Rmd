@@ -59,7 +59,7 @@ model_config <- function(provider = "OpenAI - Chat Completions",
   model_temple$default$path <- path
   model_temple$default$label <- label
   model_temple$default$model <- model
-  fs::dir_create(path = basename(file))
+  fs::dir_create(path = dirname(file))
   yaml::write_yaml(model_temple,
                    file = file)
   message("configing model,now test ...")
